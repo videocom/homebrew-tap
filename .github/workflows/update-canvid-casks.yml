@@ -1,0 +1,46 @@
+name: Update Canvid casks
+
+on:
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-canvid-casks
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: macos-latest
+    steps:
+      - name: Check out tap
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Update casks
+        run: ruby scripts/update-canvid-casks.rb
+
+      - name: Run updater tests
+        run: ruby test/update_canvid_casks_test.rb
+
+      - name: Audit generated diff
+        run: |
+          ruby scripts/validate-cask-diff.rb
+          git diff --check
+
+      - name: Commit and push changes
+        run: |
+          if git diff --quiet -- Casks/canvid.rb Casks/canvid@beta.rb; then
+            echo "Canvid casks are already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Casks/canvid.rb Casks/canvid@beta.rb
+          git commit -m "chore(casks): update Canvid releases"
+          git push origin HEAD:main
