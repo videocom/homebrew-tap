@@ -1,6 +1,6 @@
 cask "canvid@beta" do
-  version "3.1.0-beta.7"
-  sha256 "b845ee28c8b650a075048485bef4045ae36f633a778afdb253260237ed83f5d5"
+  version "3.1.0-beta.8"
+  sha256 "e473863190c147831890a6133ee28b930667c8cdce900b30ba94b39b73587e48"
 
   url "https://installers.canvid.com/Canvid%20Beta-v#{version}-mac.dmg"
   name "Canvid Beta"
