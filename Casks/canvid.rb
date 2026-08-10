@@ -1,6 +1,6 @@
 cask "canvid" do
-  version "3.0.0"
-  sha256 "9891667ac3b34d78426c20e8b9314c7fc5b60e6ff6b47424d0a4ce500d0ed0c6"
+  version "3.1.0"
+  sha256 "17d6558c5162357aa652c750b691545c398e21a0dd1a2afec8e710efbe675eb2"
 
   url "https://installers.canvid.com/Canvid-v#{version}-mac.dmg"
   name "Canvid"
